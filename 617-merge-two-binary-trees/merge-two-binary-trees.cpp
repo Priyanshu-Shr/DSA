@@ -26,12 +26,6 @@ public:
         return root1;
     }
     TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
-        if(root1 == NULL && root2 == NULL)
-            return NULL;
-        else if(root1 == NULL && root2!= NULL)
-            return root2;
-        else if(root1 != NULL && root2 == NULL)
-            return root1;
         
         root1 = solve(root1,root2);
         return root1;
