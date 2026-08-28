@@ -4,21 +4,23 @@ public:
         int i = 0;
         int j = 0;
         int ans = INT_MIN;
-        int m = k;
+        int zeros = 0;
         while(j<nums.size()){
             if(nums[j] == 0){
-                if(m != 0){
-                    j++;
-                    m--;
-                }else{
-                    i++;
-                    j = i;
-                    m = k;
-                }
-            }else{
-                j++;
+                zeros++;
             }
+
+            while(zeros > k){
+                if(nums[i] == 0){
+                    zeros--;
+                }
+                i++;
+            }
+
+            j++;
             ans = max(ans,j-i);
+             
+                
         }
         return ans;
     }
