@@ -14,8 +14,8 @@ public:
         }
 
         int ans = INT_MAX;
-        for(auto i:mp){
-            vector<int> temp = i.second;
+        for(auto &i:mp){
+            vector<int> &temp = i.second;
             int m = temp.size();
             for(int j = 0; j+2<m; j++){
                 int dis = 2*(temp[j+2] - temp[j]);
