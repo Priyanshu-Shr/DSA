@@ -1,16 +1,12 @@
 class Solution {
 public:
     int reverseDegree(string s) {
-        map<char,int> mp;
-        for(char ch:s){
-            mp[ch] = 'z' - ch +1;
+        int sum = 0;
+        for(int i = 0; i<s.size(); i++){
+            int index = 'z' - s[i] + 1;
+            int product = index*(i+1);
+            sum += product;
         }
-
-    int sum = 0;
-    for(int i = 0; i<s.size(); i++){
-        int product = mp[s[i]]*(i+1);
-        sum += product;
-    }
-    return sum;
+        return sum;
     }
 };
