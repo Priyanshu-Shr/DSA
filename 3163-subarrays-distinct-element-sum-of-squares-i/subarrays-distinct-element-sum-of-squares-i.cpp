@@ -4,12 +4,16 @@ public:
         int ans = 0;
 
         for(int i = 0; i<nums.size(); i++){
-            unordered_set<int> s;
+            vector<int> freq(101,0);
+            int k = 0; //no. of distinct elements
             for(int j = i; j<nums.size(); j++){
-                s.insert(nums[j]);
-                int n = s.size();
-                ans += n*n;
+                if(freq[nums[j]] == 0){
+                    k++;
+                }
+                freq[nums[j]]++;
+                ans += k*k;
             }
+            
         }
         return ans;
     }
