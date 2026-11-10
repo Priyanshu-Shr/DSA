@@ -1,30 +1,27 @@
 class Solution {
 public:
-    //Recursion + Tabulation Solution (DP SOLUTION)
-    int solve(int n,vector<int>& days, vector<int>& costs){
-        vector<int> dp(n+1,-1);
-        dp[n] = 0;
-
-        for(int k = n-1; k>=0; k--){
-            //choosing 1 day pass
-            int option1 = costs[0] + dp[k+1];
-
-            //choosing 7 day pass
-            int i = k;
-            for(; i<n && days[i] < days[k] + 7; i++);
-            int option2 = costs[1] + dp[i];
-
-            //choosing 30 days pass
-            i = k;
-            for(; i<n && days[i] < days[k] + 30; i++);
-            int option3 = costs[2] + dp[i];
-
-            dp[k] = min(option1,min(option2,option3));
-        }
-        return dp[0];
-    }
+    //space optimization
     int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int ans = 0;
+        queue<pair<int,int>> month;
+        queue<pair<int,int>> week;
         int n = days.size();
-        return solve(n,days,costs);
+        //traverse in days array
+        for(int i = 0; i<n; i++){
+            //step 1-> remove expired days
+            while(!month.empty() && month.front().first + 30 <= days[i])
+                month.pop();
+
+            while(!week.empty() && week.front().first + 7 <= days[i])
+                week.pop();
+            
+            //step 2-> add days to the queue
+            month.push({days[i],ans+costs[2]});
+            week.push({days[i],ans+costs[1]});
+
+            //step 3-> find min. ans
+            ans = min(ans+costs[0],min(month.front().second,week.front().second));
+        }
+        return ans;
     }
 };
